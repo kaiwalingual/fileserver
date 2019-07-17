@@ -11,6 +11,7 @@ app = Flask(__name__)
 @app.route("/<min>/<name>", methods=["GET"])
 def index(name=None, min=None):
     if request.method == "POST":
+        Path("pics").mkdir(exist_ok=True)
         f = request.files["file"]
         fname = datetime.now().strftime("%y%m%d%H%M%S") + ".jpg"
         f.save(f"pics/{fname}")

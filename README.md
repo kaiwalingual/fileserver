@@ -32,3 +32,10 @@ $ pipenv run python main.py
 $ pipenv shell
 (something)$ python main.py
 ```
+
+## API
+エンドポイント | リクエスト | 引数、返り値 | 説明
+---| --- | --- | ---
+`/` | `POST` | `file`:送信する写真、返り値として`xxxxx.jpg`と名前を返す | 写真を送りつけます
+`/xxxxxxx.jpg` | `GET` | | POSTしたときに受け取った名前で写真が取得できる
+`/min/xxxxxxx.jpg` | `GET` | | POSTしたときに受け取った名前で**サイズを縮めた**写真が取得できる

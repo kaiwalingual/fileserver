@@ -8,22 +8,24 @@ app = Flask(__name__)
 
 @app.route("/", methods=["POST"])
 @app.route("/<name>", methods=["GET"])
-@app.route("/<min>/<name>", methods=["GET"])
-def index(name=None, min=None):
+@app.route("/min/<minname>", methods=["GET"])
+def index(name=None, minname=None):
     if request.method == "POST":
         Path("pics").mkdir(exist_ok=True)
         f = request.files["file"]
         fname = datetime.now().strftime("%y%m%d%H%M%S") + ".jpg"
         f.save(f"pics/{fname}")
-        
+
         return fname
+    if minname is not None:
+        name = minname
 
     if name is None:
         return "specify a name at /<name>.jpg"
 
     path = Path(f"pics/{name}")
     if path.exists():
-        if min is not None:
+        if minname is not None:
             im = Image.open(f"pics/{name}")
             im.thumbnail((240,240))
             im_io = BytesIO()
